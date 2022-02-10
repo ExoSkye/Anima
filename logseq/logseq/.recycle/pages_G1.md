@@ -1,0 +1,5 @@
+- ### A backend capable of this must be able to:
+	- Draw wireframe models with no colours (a non-black colour on black)
+- ### Important notes
+	- Since this is the first graphics standard, any thing not able to do this is not supported by the engine. Feel free to try and port the engine to anything that can't support this standard, but it won't be conformant to the engine.
+-

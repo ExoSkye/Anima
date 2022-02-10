@@ -1,0 +1,6 @@
+[submodule "nall"]
+	path = nall
+	url = https://github.com/ProtoByter/nall.git
+[submodule "glm"]
+	path = glm
+	url = https://github.com/g-truc/glm

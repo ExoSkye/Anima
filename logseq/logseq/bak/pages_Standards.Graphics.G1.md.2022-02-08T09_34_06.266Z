@@ -1,0 +1,7 @@
+public:: true
+
+- ### Description
+	- Single colour wireframe 3D rendering
+	-
+- ### Important notes
+	- Since this is the first graphics standard, anything not capable of this is not supported by Vokel. However, you may try and port Vokel to platforms that can't do this, but any attempt is non conformant with the Vokel Graphics Standard [[Standards/Graphics]]

@@ -1,0 +1,4 @@
+- ### Why have standards?
+- Vokel is made to be as portable as possible, so it defines several standards so the developers of the Vokel backends know what certain things should be like.
+- ### What standards are there?
+- Vokel currently defines seven [[Graphics Standards]] and two [[IO Standards]]

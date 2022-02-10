@@ -1,0 +1,8 @@
+public:: true
+
+- ### Standards
+	- Vokel outlines many standards for how things should look, regardless of platform.
+	- Details of these standards can be found here: [[Standards]]
+- ### Backends
+	- To allow Vokel to be as portable to be as possible, it makes uses of backends for several subsystems of the engine (ie the graphics).
+	- You can find information about them here: [[Backends]]
