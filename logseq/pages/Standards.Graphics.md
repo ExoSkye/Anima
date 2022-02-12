@@ -3,7 +3,7 @@ public:: true
 - ### What standards are there?
 	- There are seven levels of graphics standards in the [[Anima]] engine:
 		- [[Standards/Graphics/G1]]
-		- [[Standards/Graphics/G1.5]]
+		- [[Standards/Graphics/G15]]
 		- [[Standards/Graphics/G2]]
 		- [[Standards/Graphics/G3]]
 		- [[Standards/Graphics/G4]]
