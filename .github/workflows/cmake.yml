@@ -62,7 +62,7 @@ jobs:
           base-devel
           git
           cmake
-          mingw-w64-x86_64-clang
+          gcc
         
     - name: Configure CMake
       shell: msys2 {0}
