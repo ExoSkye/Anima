@@ -62,12 +62,12 @@ jobs:
           base-devel
           git
           mingw-w64-x86_64-cmake
-          mingw-w64-x86_64-gcc
+          mingw-w64-x86_64-clang
           mingw-w64-x86_64-ninja
         
     - name: Configure CMake
       shell: msys2 {0}
-      run: /mingw64/bin/cmake.exe -B '${{github.workspace}}/build' -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DENABLE_dummy_keyboard=ON -DENABLE_dummy_video=ON  -DCMAKE_C_COMPILER=/mingw64/bin/gcc.exe -DCMAKE_CXX_COMPILER=/mingw64/bin/g++.exe
+      run: /mingw64/bin/cmake.exe -B '${{github.workspace}}/build' -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DENABLE_dummy_keyboard=ON -DENABLE_dummy_video=ON  -DCMAKE_C_COMPILER=/mingw64/bin/clang.exe -DCMAKE_CXX_COMPILER=/mingw64/bin/clang++.exe
 
     - name: Build
       shell: msys2 {0}
