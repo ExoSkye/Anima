@@ -41,7 +41,7 @@ jobs:
         submodules: 'recursive'
 
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DENABLE_dummy_keyboard=ON -DENABLE_dummy_video=ON -DMCKAE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DENABLE_dummy_keyboard=ON -DENABLE_dummy_video=ON
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
@@ -66,7 +66,7 @@ jobs:
         
     - name: Configure CMake
       shell: msys2 {0}
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DENABLE_dummy_keyboard=ON -DENABLE_dummy_video=ON
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DENABLE_dummy_keyboard=ON -DENABLE_dummy_video=ON  -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++
 
     - name: Build
       shell: msys2 {0}
