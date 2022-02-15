@@ -1,3 +1,5 @@
 project(anima_linux_keyboard_backend)
 
-add_library(linux_keyboard_backend SHARED linux_keyboard.cpp linux_keyboard.hpp)
+include(params.cmake)
+
+add_library(linux_keyboard_backend ${BACKEND_STYLE} linux_keyboard.cpp linux_keyboard.hpp)
