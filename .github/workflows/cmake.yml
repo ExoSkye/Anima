@@ -3,15 +3,22 @@ name: CMake
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'logseq/**'
+      - '.github/workflows/logseq.yml'
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - 'logseq/**'
+      - '.github/workflows/logseq.yml'
 
 env:
   BUILD_TYPE: Release
 
 jobs:
-  build:
+  linux-build:
     runs-on: ubuntu-latest
+    name: Linux Build
 
     steps:
     - uses: actions/checkout@v2
