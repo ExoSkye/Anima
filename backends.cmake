@@ -1,6 +1,8 @@
 set(BACKEND_LIBS "")
+set(LINKAGE_TYPE "NONE")
 
-function(configure_backends path)
+function(configure_backends path type)
+    message(STATUS "Configuring ${type} backends")
     file(GLOB backends LIST_DIRECTORIES true ${path})
 
     set(BACKEND_ENABLED 0)
@@ -31,17 +33,31 @@ function(configure_backends path)
     endforeach()
     
     if(${BACKEND_ENABLED} EQUAL 0)
-        message(FATAL_ERROR "At least one IO backend must be enabled")
+        message(FATAL_ERROR "At least one ${type} backend must be enabled")
     endif()
     
     if(${STATIC_BACKENDS} GREATER 1)
-        message(FATAL_ERROR "Only one static IO backend can be enabled at a time")
+        message(FATAL_ERROR "Only one static ${type} backend can be enabled at a time")
     endif()
     
     if(${STATIC_BACKENDS} GREATER 1 AND ${SHARED_BACKENDS} GREATER 1)
-        message(FATAL_ERROR "You can't enable a static and shared IO backend at the same time")
+        message(FATAL_ERROR "You can't enable a static and shared ${type} backend at the same time")
+    endif()
+
+    if(${STATIC_BACKENDS} EQUAL 1 AND ${LINKAGE_TYPE} STREQUAL "NONE")
+        set(LINKAGE_TYPE "STATIC" PARENT_SCOPE)
+    elseif(${SHARED_BACKENDS} GREATER_EQUAL 1 AND ${LINKAGE_TYPE} STREQUAL "NONE")
+        set(LINKAGE_TYPE "SHARED" PARENT_SCOPE)
+    elseif((${LINKAGE_TYPE} STREQUAL "SHARED" AND ${STATIC_BACKENDS} EQUAL 1) OR (${LINKAGE_TYPE} STREQUAL "STATIC" AND ${SHARED_BACKENDS} GREATER_EQUAL 1))
+        message(FATAL_ERROR "You can't mix linkage types in backends")
     endif()
 endfunction()
 
-configure_backends("backends/io/*")
-configure_backends("backends/video/*")
+configure_backends("backends/io/*" "I/O")
+configure_backends("backends/video/*" "Video")
+
+if(${LINKAGE_TYPE} STREQUAL "SHARED")
+    message(STATUS "Using shared linking for backends")
+else()
+    message(STATUS "Using static linking for backends")
+endif()
