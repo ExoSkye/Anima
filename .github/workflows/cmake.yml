@@ -46,3 +46,27 @@ jobs:
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
       
+  windows-build:
+    runs-on: windows-latest
+    name: Windows Build
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+
+    - uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: >-
+          base-devel
+          git
+          cmake
+        
+    - name: Configure CMake
+      shell: msys2 {0}
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DENABLE_dummy_keyboard=ON -DENABLE_dummy_video=ON
+
+    - name: Build
+      shell: msys2 {0}
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
