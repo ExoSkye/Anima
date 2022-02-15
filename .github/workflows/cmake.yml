@@ -61,13 +61,13 @@ jobs:
         install: >-
           base-devel
           git
-          cmake
-          gcc
+          mingw-w64-x86_64-cmake
+          mingw-w64-x86_64-gcc
         
     - name: Configure CMake
       shell: msys2 {0}
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DENABLE_dummy_keyboard=ON -DENABLE_dummy_video=ON  -DCMAKE_C_COMPILER=/usr/bin/gcc.exe -DCMAKE_CXX_COMPILER=/usr/bin/g++
+      run: /mingw64/bin/cmake.exe -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DENABLE_dummy_keyboard=ON -DENABLE_dummy_video=ON  -DCMAKE_C_COMPILER=/mingw64/bin/gcc.exe -DCMAKE_CXX_COMPILER=/mingw64/bin/g++.exe
 
     - name: Build
       shell: msys2 {0}
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: /mingw64/bin/cmake.exe --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
