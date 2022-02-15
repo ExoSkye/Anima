@@ -1,4 +1,4 @@
-#include "sdl_opengl.hpp"
+#include "dummy_video.hpp"
 
 namespace Anima::Backends::Video {
 
