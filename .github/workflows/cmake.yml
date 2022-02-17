@@ -59,7 +59,7 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - uses: msys2/setup-msys2@v2
-      if: ${{ matrix.os == 'windows-latest' && matrix.compiler == 'gcc' }}
+      if: ${{ ${{ matrix.os == 'windows-2022' || matrix.os == 'windows-2019' }} && matrix.compiler == 'gcc' }}
       name: Set up MSYS2 (GCC)
       with:
         update: true
@@ -71,7 +71,7 @@ jobs:
           mingw-w64-x86_64-ninja
 
     - uses: msys2/setup-msys2@v2
-      if: ${{ matrix.os == 'windows-latest' && matrix.compiler == 'clang' }}
+      if: ${{ ${{ matrix.os == 'windows-2022' || matrix.os == 'windows-2019' }} && matrix.compiler == 'clang' }}
       name: Set up MSYS2 (Clang)
       with:
         update: true
