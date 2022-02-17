@@ -85,7 +85,7 @@ jobs:
     - name: Configure CMake (MSYS2)
       if: ${{ matrix.os == 'windows-2022' || matrix.os == 'windows-2019' }}
       shell: msys2 {0}
-      run: /mingw64/bin/cmake.exe -B '${{github.workspace}}/build' -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DENABLE_dummy_keyboard=ON -DENABLE_dummy_video=ON  -DCMAKE_C_COMPILER=/mingw64/bin/clang.exe -DCMAKE_CXX_COMPILER=/mingw64/bin/clang++.exe
+      run: /mingw64/bin/cmake.exe -B '${{github.workspace}}/build' -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DENABLE_dummy_keyboard=ON -DENABLE_dummy_video=ON
 
     - name: Build (MSYS2)
       if: ${{ matrix.os == 'windows-2022' || matrix.os == 'windows-2019' }}
