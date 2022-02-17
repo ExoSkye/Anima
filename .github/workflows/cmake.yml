@@ -51,11 +51,11 @@ jobs:
         submodules: 'recursive'
 
     - name: Configure CMake (No MSYS2)
-      if: matrix.os != 'windows-latest'
+      if: ${{ matrix.os != 'windows-2022' && matrix.os != 'windows-2019' }}
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DENABLE_dummy_keyboard=ON -DENABLE_dummy_video=ON
 
     - name: Build (No MSYS2)
-      if: matrix.os != 'windows-latest'
+      if: ${{ matrix.os != 'windows-2022' && matrix.os != 'windows-2019' }}
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - uses: msys2/setup-msys2@v2
@@ -83,11 +83,11 @@ jobs:
           mingw-w64-x86_64-ninja
         
     - name: Configure CMake (MSYS2)
-      if: matrix.os == 'windows-latest'
+      if: ${{ matrix.os == 'windows-2022' || matrix.os == 'windows-2019' }}
       shell: msys2 {0}
       run: /mingw64/bin/cmake.exe -B '${{github.workspace}}/build' -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DENABLE_dummy_keyboard=ON -DENABLE_dummy_video=ON  -DCMAKE_C_COMPILER=/mingw64/bin/clang.exe -DCMAKE_CXX_COMPILER=/mingw64/bin/clang++.exe
 
     - name: Build (MSYS2)
-      if: matrix.os == 'windows-latest'
+      if: ${{ matrix.os == 'windows-2022' || matrix.os == 'windows-2019' }}
       shell: msys2 {0}
       run: /mingw64/bin/cmake.exe --build '${{github.workspace}}/build' --config ${{env.BUILD_TYPE}}
