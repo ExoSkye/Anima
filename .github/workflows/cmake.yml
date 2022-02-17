@@ -36,6 +36,7 @@ jobs:
             cxx: clang++
 
     name: Build
+    runs-on: ${{ matrix.os }}
 
     env:
       CC: ${{ matrix.cc }}
