@@ -23,7 +23,10 @@ jobs:
         os: [ubuntu-18.04, ubuntu-20.04, macos-11, macos-10.15, windows-2022, windows-2019]
         compiler: [clang, gcc]
         exclude:
-          - os: macos-latest
+          - os: macos-11
+            compiler: gcc
+
+          - os: macos-10.15
             compiler: gcc
 
         include:
@@ -56,8 +59,20 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - uses: msys2/setup-msys2@v2
-      if: matrix.os == 'windows-latest'
-      name: Set up MSYS2
+      if: ${{ matrix.os == 'windows-latest' && matrix.compiler == 'gcc' }}
+      name: Set up MSYS2 (GCC)
+      with:
+        update: true
+        install: >-
+          base-devel
+          git
+          mingw-w64-x86_64-cmake
+          mingw-w64-x86_64-gcc
+          mingw-w64-x86_64-ninja
+
+    - uses: msys2/setup-msys2@v2
+      if: ${{ matrix.os == 'windows-latest' && matrix.compiler == 'clang' }}
+      name: Set up MSYS2 (Clang)
       with:
         update: true
         install: >-
@@ -65,7 +80,6 @@ jobs:
           git
           mingw-w64-x86_64-cmake
           mingw-w64-x86_64-clang
-          mingw-w64-x86_64-gcc
           mingw-w64-x86_64-ninja
         
     - name: Configure CMake (MSYS2)
