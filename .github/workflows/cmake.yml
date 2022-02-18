@@ -145,7 +145,7 @@ jobs:
             apt install cmake ${{ matrix.compiler }} build-essential ninja-build git -y
             
           run: |
-            git clone https://github.com/ProtoByter/Anima
+            git clone https://github.com/ProtoByter/Anima --recurse-submodules
             cd Anima
             mkdir build
             cd build
