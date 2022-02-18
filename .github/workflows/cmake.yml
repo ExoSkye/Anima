@@ -97,26 +97,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [armv7, aarch64, s390x, ppc64le]
+        arch: [armv7, aarch64, s390x, ppc64le, riscv64]
         compiler: [clang, gcc]
         include:
           - compiler: gcc
             cc: gcc
             cxx: g++
-            ld: ld
-            link-cmd: 'echo "No symlinking required"'
 
           - compiler: clang
             cc: clang
             cxx: clang++
-            ld: ld.lld
-            link-cmd: 'ln -sfv /usr/bin/lld /usr/bin/ld'
     
     name: Non-x86 Build
     
     steps:
       - uses: actions/checkout@v2.1.0
-      - uses: uraimo/run-on-arch-action@v2.1.1
+      - uses: ProtoByter/run-on-arch-action@v2.1.2
         name: Build artifact
         id: build
         with:
@@ -145,8 +141,7 @@ jobs:
             CXX: ${{ matrix.cxx }}
           
           install: |
-            apk add cmake cmd:${{ matrix.cc }} cmd:${{ matrix.cxx }} cmd:make cmd:${{ matrix.ld }} build-base git
-            ${{ matrix.link-cmd }}
+            apk add cmake cmd:${{ matrix.cc }} cmd:${{ matrix.cxx }} cmd:make cmd:ld build-base git
             
           run: |
             git clone https://github.com/ProtoByter/Anima --recurse-submodules
