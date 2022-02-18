@@ -95,9 +95,18 @@ jobs:
   other-arch-build:
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         arch: [armv7, aarch64, s390x, ppc64le]
         compiler: [clang, gcc]
+        include:
+          - compiler: gcc
+            cc: gcc
+            cxx: g++
+
+          - compiler: clang
+            cc: clang
+            cxx: clang++
     
     name: Non-x86 Build
     
@@ -127,9 +136,13 @@ jobs:
 
           shell: /bin/sh
           
+          env: |
+            CC: ${{ matrix.cc }}
+            CXX: ${{ matrix.cxx }}
+          
           install: |
             apt update
-            apt install cmake ${{ matrix.compiler }} build-essential ninja-build
+            apt install cmake ${{ matrix.compiler }} build-essential ninja-build -y
             
           run: |
             git clone https://github.com/ProtoByter/Anima
