@@ -117,7 +117,7 @@ jobs:
         id: build
         with:
           arch: ${{ matrix.arch }}
-          distro: bullseye
+          distro: alpine
 
           # Not required, but speeds up builds
           githubToken: ${{ github.token }}
@@ -141,8 +141,7 @@ jobs:
             CXX: ${{ matrix.cxx }}
           
           install: |
-            apt update
-            apt install cmake ${{ matrix.compiler }} build-essential ninja-build git -y
+            apk add cmake cmd:${{ matrix.cc }} cmd:${{ matrix.cxx }} ninja-build git -y
             
           run: |
             git clone https://github.com/ProtoByter/Anima --recurse-submodules
