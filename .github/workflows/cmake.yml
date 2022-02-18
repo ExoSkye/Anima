@@ -142,7 +142,7 @@ jobs:
           
           install: |
             apt update
-            apt install cmake ${{ matrix.compiler }} build-essential ninja-build -y
+            apt install cmake ${{ matrix.compiler }} build-essential ninja-build git -y
             
           run: |
             git clone https://github.com/ProtoByter/Anima
