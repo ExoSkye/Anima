@@ -108,7 +108,7 @@ jobs:
         id: build
         with:
           arch: ${{ matrix.arch }}
-          distro: ${{ matrix.distro }}
+          distro: bullseye
 
           # Not required, but speeds up builds
           githubToken: ${{ github.token }}
