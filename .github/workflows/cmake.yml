@@ -103,10 +103,12 @@ jobs:
           - compiler: gcc
             cc: gcc
             cxx: g++
+            ld: ld
 
           - compiler: clang
             cc: clang
             cxx: clang++
+            ld: lld
     
     name: Non-x86 Build
     
@@ -141,7 +143,7 @@ jobs:
             CXX: ${{ matrix.cxx }}
           
           install: |
-            apk add cmake cmd:${{ matrix.cc }} cmd:${{ matrix.cxx }} gcc cmd:make cmd:ld git
+            apk add cmake cmd:${{ matrix.cc }} cmd:${{ matrix.cxx }} cmd:make cmd:${{ matrix.ld }} build-base git
             
           run: |
             git clone https://github.com/ProtoByter/Anima --recurse-submodules
