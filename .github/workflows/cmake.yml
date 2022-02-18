@@ -117,7 +117,7 @@ jobs:
         id: build
         with:
           arch: ${{ matrix.arch }}
-          distro: alpine-latest
+          distro: alpine_latest
 
           # Not required, but speeds up builds
           githubToken: ${{ github.token }}
