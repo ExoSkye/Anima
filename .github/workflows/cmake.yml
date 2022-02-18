@@ -141,7 +141,7 @@ jobs:
             CXX: ${{ matrix.cxx }}
           
           install: |
-            apk add cmake cmd:${{ matrix.cc }} cmd:${{ matrix.cxx }} ninja-build git -y
+            apk add cmake cmd:${{ matrix.cc }} cmd:${{ matrix.cxx }} ninja-build git
             
           run: |
             git clone https://github.com/ProtoByter/Anima --recurse-submodules
