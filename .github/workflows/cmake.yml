@@ -16,7 +16,7 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  build:
+  x86-build:
     strategy:
       fail-fast: false
       matrix:
@@ -38,7 +38,7 @@ jobs:
             cc: clang
             cxx: clang++
 
-    name: Build
+    name: x86 Build
     runs-on: ${{ matrix.os }}
 
     env:
@@ -91,3 +91,51 @@ jobs:
       if: ${{ matrix.os == 'windows-2022' || matrix.os == 'windows-2019' }}
       shell: msys2 {0}
       run: /mingw64/bin/cmake.exe --build '${{github.workspace}}/build' --config ${{env.BUILD_TYPE}}
+      
+  other-arch-build:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        arch: [armv7, aarch64, s390x, ppc64le]
+        compiler: [clang, gcc]
+    
+    name: Non-x86 Build
+    
+    steps:
+      - uses: actions/checkout@v2.1.0
+      - uses: uraimo/run-on-arch-action@v2
+        name: Build artifact
+        id: build
+        with:
+          arch: ${{ matrix.arch }}
+          distro: ${{ matrix.distro }}
+
+          # Not required, but speeds up builds
+          githubToken: ${{ github.token }}
+          
+          # Will add artifact support later
+          
+          #setup: |
+          #  mkdir -p "${PWD}/artifacts"
+          #
+          #dockerRunArgs: |
+          #  --volume "${PWD}/artifacts:/artifacts"
+          #
+          #
+          #env: |
+          #  artifact_name: git-${{ matrix.distro }}_${{ matrix.arch }}
+
+          shell: /bin/sh
+          
+          install: |
+            apt install cmake ${{ matrix.compiler }} build-essential ninja-build
+            
+          run: |
+            git clone https://github.com/ProtoByter/Anima
+            cd Anima
+            mkdir build
+            cd build
+            cmake .. -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DENABLE_dummy_keyboard=ON -DENABLE_dummy_video=ON
+            cmake --build . --config ${{env.BUILD_TYPE}}
+            
+          
