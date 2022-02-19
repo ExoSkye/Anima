@@ -107,6 +107,10 @@ jobs:
           - compiler: clang
             cc: clang
             cxx: clang++
+            
+        exclude:
+          - arch: armv7
+            compiler: clang
     
     name: Non-x86 Build
     
